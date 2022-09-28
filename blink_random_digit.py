@@ -29,7 +29,7 @@ Date: September 2022
 
 7segment LED display
 
-        A    
+        A
     o--------o
     |        | B
   F |   G    |
@@ -41,14 +41,15 @@ Date: September 2022
 
 """
 
-import machine
-import time
 import random
+import time
+
+import machine
 
 TIMEOUT = 60    # timeout in seconds to auto-stop the script
 
 A = machine.Pin(25, machine.Pin.OUT)    # GPIO25
-B = machine.Pin(26, machine.Pin.OUT)   # GPIO26
+B = machine.Pin(26, machine.Pin.OUT)    # GPIO26
 C = machine.Pin(16, machine.Pin.OUT)    # GPIO16
 D = machine.Pin(17, machine.Pin.OUT)    # GPIO17
 E = machine.Pin(18, machine.Pin.OUT)    # GPIO18

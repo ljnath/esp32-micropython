@@ -29,7 +29,7 @@ Date: September 2022
 
 7segment LED display
 
-        A    
+        A
     o--------o
     |        | B
   F |   G    |
@@ -40,8 +40,9 @@ Date: September 2022
         D
 
 """
-import machine
 import time
+
+import machine
 
 A = machine.Pin(27, machine.Pin.OUT)    # GPIO27
 B = machine.Pin(14 , machine.Pin.OUT)   # GPIO14
@@ -67,6 +68,9 @@ DIGITS = {
 }
 
 def main():
+    """
+    Main driver function
+    """
     counter = 0
     while True:
         
@@ -87,7 +91,7 @@ def main():
             counter = 0
         
         # sleeping for 1s to simulation an elapse of 1s
-        time.sleep(.5)
+        time.sleep(1)
         
 if __name__ == '__main__':
     main()
