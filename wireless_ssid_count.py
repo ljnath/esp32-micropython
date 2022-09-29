@@ -110,6 +110,7 @@ class LedDisplay:
     def show_number(self, number: int) -> None:
         """
         Method to show a 2 digit number on the LCD display
+        :param number : Integer number to show
         """
         # displaying the ONES digit
         digit_at_ones_place = number % 10
