@@ -1,0 +1,2 @@
+[MESSAGES CONTROL]
+disable=locally-disabled, line-too-long, import-error, no-member

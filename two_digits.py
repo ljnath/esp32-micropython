@@ -130,13 +130,13 @@ def main():
     """
     Main function to display 2 digits number from 0 to 99
     """
-    lcd_display = LedDisplay()
-    lcd_display.clear_display()
+    led_display = LedDisplay()
+    led_display.clear_display()
     counter = 0
 
     while True:
-        lcd_display.clear_display()         # clearing both the screen
-        lcd_display.show_number(counter)    # displaying number
+        led_display.clear_display()         # clearing both the screen
+        led_display.show_number(counter)    # displaying number
         time.sleep(.5)                      # sleeping for 500 ms
         counter += 1                        # increasing counter value
 
