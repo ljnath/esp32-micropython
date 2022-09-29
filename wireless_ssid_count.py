@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Micropython code to display 2 digits on to 2 7-segment LED display (common cathode).
+Micropython code to scan for wireless SSID and display the number of results it found on 7-segment LED display (common cathode).
 Tested this code on ESP32
 
 Author: Lakhya Jyoti Nath
@@ -38,15 +38,12 @@ Date: September 2022
   E |        |
     o--------o
         D
-
 """
 
 import time
 
 import machine
-
-
-TIMEOUT = 300    # timeout in seconds to auto-stop the script
+import network
 
 
 class LedDisplay:
@@ -114,7 +111,6 @@ class LedDisplay:
         """
         Method to show a 2 digit number on the LCD display
         """
-
         # displaying the ONES digit
         digit_at_ones_place = number % 10
         segments_to_lit = self.__get_segments('ones',  digit_at_ones_place)
@@ -126,22 +122,41 @@ class LedDisplay:
             _ = [segment.on() for segment in segments_to_lit]
 
 
+class WirelessNetwork:
+    """
+    WirelessNetwork class for handling all wireless network operation
+    """
+
+    def __init__(self) -> None:
+        print('Initializing wireless NIC')
+        self.__nic = network.WLAN(network.STA_IF)
+        self.__nic.active(True)                         # activating wireless network adapter
+
+        self.__led_display = LedDisplay()
+
+    def scan(self) -> list:
+        """
+        Method to scan for all available wirelesss SSIDs
+        """
+        return self.__nic.scan()
+
+
 def main():
     """
-    Main function to display 2 digits number from 0 to 99
+    Driver function
     """
     led_display = LedDisplay()
-    led_display.clear_display()
-    counter = 0
+    wireless_network = WirelessNetwork()
 
     while True:
-        led_display.clear_display()         # clearing both the screen
-        led_display.show_number(counter)    # displaying number
-        time.sleep(.5)                      # sleeping for 500 ms
-        counter += 1                        # increasing counter value
+        led_display.clear_display()
+        available_ssids = wireless_network.scan()
 
-        if counter == 100:                  # exiting when 3 digits numbers are encountered
-            break
+        print(f'Number of SSID found: {len(available_ssids)}')
+        led_display.show_number(len(available_ssids))
+
+        print('Re-scanning again in 5 seconds...')
+        time.sleep(5)
 
 
 if __name__ == '__main__':
