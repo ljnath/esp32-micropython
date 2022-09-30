@@ -16,6 +16,8 @@
             </br>This is achieved by using common-anode and common-cathode LED display and cotrolling both programmatically.</br></br>
             One caveat is that the display flashes in pre-defined interval. This is because we are using same set of GPIO pins for 2 display.</br>To show time on both the display, we are clearing the display and displaying the numbers again and again. This results in the flashing effect.
 
+### CLOCK DEMO
+![Demo](clock_demo.gif)
 
-
-
+### CLOCK CIRCUIT
+![Demo](clock_circuit.png)

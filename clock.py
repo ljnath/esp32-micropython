@@ -211,6 +211,11 @@ def main():
     lcd_display = LcdDisplay()
     constants = Constants()
 
+    # # addition code to exit the script when Pin5 is low; for debugging purpose
+    # script_control_pin = 5
+    # if machine.Pin(script_control_pin, machine.Pin.IN).value() == 0:
+    #     raise SystemExit
+
     while True:
         current_time = time.localtime()
 
@@ -220,7 +225,7 @@ def main():
         time.sleep_ms(sleep_value)
         lcd_display.show_number(current_time[4], constants.COMMON_ANODE)
 
-        time.sleep(.3)
+        time.sleep_us(300)
 
 
 if __name__ == '__main__':
