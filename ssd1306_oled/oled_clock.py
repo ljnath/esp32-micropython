@@ -113,16 +113,26 @@ def show_clock(ip: str = None):
     """
     Method to show the clodk
     """
+    display.clear()
+    display.show_text('  ESP Clock 0.1')
+
+    current_time = utime.localtime(utime.time() + ASIA_TIMEZONE_DIFF_IN_SEC)
+    display.show_text(f'Date:{months.get(current_time[1])} {current_time[2]:02d},{current_time[0]}', y=20)
+
+    if ip:
+        display.show_text(f'IP: {ip}', y=50)
+
     while True:
         current_time = utime.localtime(utime.time() + ASIA_TIMEZONE_DIFF_IN_SEC)
-        display.clear()
-        display.show_text('  ESP Clock 0.1')
 
-        display.show_text(f'Date:{months.get(current_time[1])} {current_time[2]:02d},{current_time[0]}', y=20)
+        # updating only the time
+        display.clear_line(0, 30)
         display.show_text(f'Time:{current_time[3]:02d}:{current_time[4]:02d}:{current_time[5]:02d}Hrs.', y=30)
 
-        if ip:
-            display.show_text(f'IP: {ip}', y=50)
+        # updating the date only when the time is 00:00 Hrs
+        if (current_time[3] == 0 and current_time[4] == 0):
+            display.clear_line(0, 20)
+            display.show_text(f'Date:{months.get(current_time[1])} {current_time[2]:02d},{current_time[0]}', y=20)
 
         sleep(1)
 
